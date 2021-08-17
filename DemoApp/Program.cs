@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DemoApp.Inheritance;
+using System;
 
 namespace DemoApp
 {
@@ -6,92 +7,90 @@ namespace DemoApp
     {
         static void Main(string[] args)
         {
-
-            //class
-            //object
-            //when to use static keyword
-
-            Console.WriteLine("Hello World!");
-            Person.Animal =  "social anumsal";
-
-
-            Person puran = new Person();
-            puran.Name = "Puran";
-            puran.Age = 15;
-            puran.Gender = "Male";
-        
-            puran.Walk();
-
-            Person niraj = new Person();
-            niraj.Name = "Niraj";
-            niraj.Age = 15;
-            niraj.Gender = "Male";
-            niraj.Walk();
-            Helper.JoinNameAndAge(niraj.Name, niraj.Age);
-
-            Person.Animal = "xyz animal";
-
-            FileData firstFile = new FileData()
-            {
-                Name = "XYZ",
-                SizeInMb = 10,
-                PageSize = 50
-            };
-
-            firstFile.SaveFile(firstFile.Name);
-            Console.ReadLine();
-
-        }
-    }
-
-
-    public class Person
-    {
-        public static string Animal { get; set; } 
-
-        public const string WillDie ="Yes";
-
-        private readonly int Fingers;
-        public  string Name { get; set; }
-
-        public int Age { get; set; }
-
-        public string Gender { get; set; }
-
-
-        public void Walk()
-        {
-            Console.WriteLine($"{Name} is wlaking");
-        }
-
-    }
-
-    public class FileData
-    {
-        public string Name { get; set; }
-
-        public int SizeInMb { get; set; }
-
-        public int PageSize { get; set; }
-
-
-        public void SaveFile(string name)
-        {
-            Console.WriteLine($"Save {name} file");
-        }
-
-    }
-
-
-    public static class Helper
-    {
-
-        public static void JoinNameAndAge(string name, int age)
-        {
-            Console.WriteLine($"this helps to join {name} and {age}");
+            Employee firstEmployee = new Employee();
+            firstEmployee.FirstName = "Puran";
+            firstEmployee.LastName = "Dahal";
             
+
+            Person firstPerson = new Person();
+            firstPerson.Age = 25;
+            firstPerson.Gender = "Male";
+
+            // dependency injection
+
+
+        }
+
+
+    }
+
+
+    public class A
+    {
+        public void Method1()
+        {
+
+            B x = new B();
+
+            FactoryClass factory = new FactoryClass();
+         
+            var b = factory.CreateBClass();
         }
     }
 
-    
+    public class B :  IB
+    {
+        public void Method2()
+        {
+            FactoryClass factory = new FactoryClass();
+
+            var c = factory.CreateCClass();
+
+        }
+    } 
+
+    public class C : IC
+    {
+       
+    }
+
+
+
+    public interface IB
+    {
+
+    }
+
+    public interface IC
+    {
+
+    }
+
+
+
+    public class FactoryClass
+    {
+       
+
+        public IB CreateBClass()
+        {
+            D d = new D();
+            return d;
+        }
+
+        public IC CreateCClass()
+        {
+            C a = new C();
+            return a;
+        }
+
+    }
+
+
+
+    public class D : IB
+    {
+
+    }
 }
+
